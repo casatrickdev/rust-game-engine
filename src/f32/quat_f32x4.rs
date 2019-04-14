@@ -40,11 +40,6 @@ pub fn quat(x: f32, y: f32, z: f32, w: f32) -> Quat {
 
 impl Quat {
     #[inline]
-    pub fn zero() -> Quat {
-        unsafe { Quat(_mm_set1_ps(0.0)) }
-    }
-
-    #[inline]
     pub fn new(x: f32, y: f32, z: f32, w: f32) -> Quat {
         unsafe { Quat(_mm_set_ps(w, z, y, x)) }
     }
@@ -59,57 +54,8 @@ impl Quat {
     }
 
     #[inline]
-    pub fn get_x(self) -> f32 {
-        unsafe { _mm_cvtss_f32(self.0) }
-    }
-
-    #[inline]
-    pub fn get_y(self) -> f32 {
-        unsafe { _mm_cvtss_f32(_mm_shuffle_ps(self.0, self.0, 0b01_01_01_01)) }
-    }
-
-    #[inline]
-    pub fn get_z(self) -> f32 {
-        unsafe { _mm_cvtss_f32(_mm_shuffle_ps(self.0, self.0, 0b10_10_10_10)) }
-    }
-
-    #[inline]
-    pub fn get_w(self) -> f32 {
-        unsafe { _mm_cvtss_f32(_mm_shuffle_ps(self.0, self.0, 0b11_11_11_11)) }
-    }
-
-    #[inline]
-    pub fn set_x(&mut self, x: f32) {
-        unsafe {
-            self.0 = _mm_move_ss(self.0, _mm_set_ss(x));
-        }
-    }
-
-    #[inline]
-    pub fn set_y(&mut self, y: f32) {
-        unsafe {
-            let mut t = _mm_move_ss(self.0, _mm_set_ss(y));
-            t = _mm_shuffle_ps(t, t, 0b11_10_00_00);
-            self.0 = _mm_move_ss(t, self.0);
-        }
-    }
-
-    #[inline]
-    pub fn set_z(&mut self, z: f32) {
-        unsafe {
-            let mut t = _mm_move_ss(self.0, _mm_set_ss(z));
-            t = _mm_shuffle_ps(t, t, 0b11_00_01_00);
-            self.0 = _mm_move_ss(t, self.0);
-        }
-    }
-
-    #[inline]
-    pub fn set_w(&mut self, w: f32) {
-        unsafe {
-            let mut t = _mm_move_ss(self.0, _mm_set_ss(w));
-            t = _mm_shuffle_ps(t, t, 0b00_10_01_00);
-            self.0 = _mm_move_ss(t, self.0);
-        }
+    pub fn from_axis_angle(axis: Vec3, angle: Angle) -> Quat {
+        unimplemented!()
     }
 
     #[inline]
@@ -145,11 +91,6 @@ impl Quat {
     #[inline]
     pub fn slerp(self, rhs: Quat, t: f32) -> Quat {
         unimplemented!();
-    }
-
-    #[inline]
-    pub fn from_axis_angle(axis: Vec3, angle: Angle) -> Quat {
-        unimplemented!()
     }
 
     #[inline]
