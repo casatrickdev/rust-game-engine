@@ -340,6 +340,18 @@ impl IVec3 {
     pub fn as_uvec3(&self) -> crate::UVec3 {
         crate::UVec3::new(self.x as u32, self.y as u32, self.z as u32)
     }
+
+    /// Casts all elements of `self` to `i64`.
+    #[inline]
+    pub fn as_i64vec3(&self) -> crate::I64Vec3 {
+        crate::I64Vec3::new(self.x as i64, self.y as i64, self.z as i64)
+    }
+
+    /// Casts all elements of `self` to `u64`.
+    #[inline]
+    pub fn as_u64vec3(&self) -> crate::U64Vec3 {
+        crate::U64Vec3::new(self.x as u64, self.y as u64, self.z as u64)
+    }
 }
 
 impl Default for IVec3 {
@@ -843,6 +855,30 @@ impl Shr<i32> for IVec3 {
     }
 }
 
+impl Shl<i64> for IVec3 {
+    type Output = Self;
+    #[inline]
+    fn shl(self, rhs: i64) -> Self::Output {
+        Self {
+            x: self.x.shl(rhs),
+            y: self.y.shl(rhs),
+            z: self.z.shl(rhs),
+        }
+    }
+}
+
+impl Shr<i64> for IVec3 {
+    type Output = Self;
+    #[inline]
+    fn shr(self, rhs: i64) -> Self::Output {
+        Self {
+            x: self.x.shr(rhs),
+            y: self.y.shr(rhs),
+            z: self.z.shr(rhs),
+        }
+    }
+}
+
 impl Shl<u8> for IVec3 {
     type Output = Self;
     #[inline]
@@ -907,6 +943,30 @@ impl Shr<u32> for IVec3 {
     type Output = Self;
     #[inline]
     fn shr(self, rhs: u32) -> Self::Output {
+        Self {
+            x: self.x.shr(rhs),
+            y: self.y.shr(rhs),
+            z: self.z.shr(rhs),
+        }
+    }
+}
+
+impl Shl<u64> for IVec3 {
+    type Output = Self;
+    #[inline]
+    fn shl(self, rhs: u64) -> Self::Output {
+        Self {
+            x: self.x.shl(rhs),
+            y: self.y.shl(rhs),
+            z: self.z.shl(rhs),
+        }
+    }
+}
+
+impl Shr<u64> for IVec3 {
+    type Output = Self;
+    #[inline]
+    fn shr(self, rhs: u64) -> Self::Output {
         Self {
             x: self.x.shr(rhs),
             y: self.y.shr(rhs),
