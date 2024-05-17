@@ -1230,14 +1230,14 @@ impl fmt::Debug for Vec3A {
 }
 
 impl From<Vec3A> for f32x4 {
-    #[inline]
+    #[inline(always)]
     fn from(t: Vec3A) -> Self {
         t.0
     }
 }
 
 impl From<f32x4> for Vec3A {
-    #[inline]
+    #[inline(always)]
     fn from(t: f32x4) -> Self {
         Self(t)
     }
