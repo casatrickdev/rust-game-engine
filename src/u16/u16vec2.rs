@@ -1,6 +1,6 @@
 // Generated from vec.rs.tera template. Edit the template, not the generated file.
 
-use crate::{BVec2, I16Vec2, I64Vec2, IVec2, U16Vec3, U64Vec2, UVec2};
+use crate::{BVec2, I16Vec2, I64Vec2, I8Vec2, IVec2, U16Vec3, U64Vec2, U8Vec2, UVec2};
 
 use core::fmt;
 use core::iter::{Product, Sum};
@@ -317,6 +317,20 @@ impl U16Vec2 {
     #[must_use]
     pub fn as_dvec2(&self) -> crate::DVec2 {
         crate::DVec2::new(self.x as f64, self.y as f64)
+    }
+
+    /// Casts all elements of `self` to `i8`.
+    #[inline]
+    #[must_use]
+    pub fn as_i8vec2(&self) -> crate::I8Vec2 {
+        crate::I8Vec2::new(self.x as i8, self.y as i8)
+    }
+
+    /// Casts all elements of `self` to `u8`.
+    #[inline]
+    #[must_use]
+    pub fn as_u8vec2(&self) -> crate::U8Vec2 {
+        crate::U8Vec2::new(self.x as u8, self.y as u8)
     }
 
     /// Casts all elements of `self` to `i16`.
@@ -1573,6 +1587,22 @@ impl From<U16Vec2> for (u16, u16) {
     #[inline]
     fn from(v: U16Vec2) -> Self {
         (v.x, v.y)
+    }
+}
+
+impl From<U8Vec2> for U16Vec2 {
+    #[inline]
+    fn from(v: U8Vec2) -> Self {
+        Self::new(u16::from(v.x), u16::from(v.y))
+    }
+}
+
+impl TryFrom<I8Vec2> for U16Vec2 {
+    type Error = core::num::TryFromIntError;
+
+    #[inline]
+    fn try_from(v: I8Vec2) -> Result<Self, Self::Error> {
+        Ok(Self::new(u16::try_from(v.x)?, u16::try_from(v.y)?))
     }
 }
 
